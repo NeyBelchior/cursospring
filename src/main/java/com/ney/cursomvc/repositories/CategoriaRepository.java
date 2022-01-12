@@ -10,6 +10,7 @@ import com.ney.cursomvc.domain.Categoria;
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 	
 	
+	
 
 	
 	
