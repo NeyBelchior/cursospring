@@ -28,4 +28,10 @@ public class CategoriaService {
     	
     }
 
+    //o update no spring é decidido se o parâmetro vem como nulo ou não 
+	public Categoria update(Categoria obj) {
+	    find(obj.getId());
+		return repo.save(obj);
+	}
+
 }
