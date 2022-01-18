@@ -2,7 +2,6 @@ package com.ney.cursomvc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -14,10 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-
-import org.apache.tomcat.util.digester.ArrayStack;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ney.cursomvc.domain.enums.TipoCliente;
@@ -32,6 +28,9 @@ public class Cliente implements Serializable{
     private String email;
     private String cpdfOuCnpj;
     private Integer tipo;
+    
+    @OneToMany(mappedBy = "cliente")
+    List<Pedido> pedidos = new ArrayList<>();
     
     @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
@@ -57,13 +56,14 @@ public class Cliente implements Serializable{
     }
 
 
+
 	public Cliente(Integer id, String nome, String email, String cpdfOuCnpj, TipoCliente tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpdfOuCnpj = cpdfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo =tipo.getCod();
 	}
 
 
@@ -142,6 +142,12 @@ public class Cliente implements Serializable{
 			return false;
 		Cliente other = (Cliente) obj;
 		return Objects.equals(id, other.id);
+	}
+
+
+	public List<Pedido> getPedidos() {
+		
+		return pedidos;
 	}
 
 
