@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -30,7 +31,7 @@ public class Cidade implements Serializable {
    private Integer id;
    private String nome;
   
-  @JsonBackReference
+  @JsonManagedReference
   @ManyToOne
   @JoinColumn(name="estado_id") 
   private Estado estado;
