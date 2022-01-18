@@ -1,7 +1,10 @@
 package com.ney.cursomvc.domain;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,8 +18,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 @Entity
-public class Pedido {
+public class Pedido implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -37,6 +43,10 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name="enderecoEntrega_id")
     Endereco enderecoEntrega;
+  
+    
+   @OneToMany(mappedBy = "id.pedido")
+   private Set<ItemPedido> itens = new HashSet<>();    
     
     public Pedido() {
     	
@@ -53,6 +63,19 @@ public class Pedido {
 	}
 
 
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+    
+	
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -102,7 +125,10 @@ public class Pedido {
 		Pedido other = (Pedido) obj;
 		return Objects.equals(id, other.id);
 	}
-    
+
+
+
+	
     
 	
     
